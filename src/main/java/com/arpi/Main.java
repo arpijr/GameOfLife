@@ -1,6 +1,7 @@
 package com.arpi;
 
 import com.arpi.control.GameScreenController;
+import com.arpi.display.ConsoleGameScreenDisplayer;
 import com.arpi.display.FXGameScreenDisplayer;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,21 +16,15 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         GameScreenController gameScreenController = new GameScreenController();
-        gameScreenController.initGrid(40, 40);
-        gameScreenController.fillGameScreenWithRandom();
 
         FXGameScreenDisplayer fxGameScreenDisplayer = new FXGameScreenDisplayer();
-        fxGameScreenDisplayer.setPrimaryStage(primaryStage);
+
         gameScreenController.setGameScreenDisplayer(fxGameScreenDisplayer);
+        gameScreenController.initGrid(216, 384);
+        gameScreenController.fillGameScreenWithRandom();
+
+        fxGameScreenDisplayer.setPrimaryStage(primaryStage);
         gameScreenController.showGameScreen();
-
-
-        /*
-        ConsoleGameScreenDisplayer consoleGameScreenDisplayer = new ConsoleGameScreenDisplayer();
-        gameScreenController.setGameScreenDisplayer(consoleGameScreenDisplayer);
-        gameScreenController.showGameScreen();
-        */
-
 
     }
 

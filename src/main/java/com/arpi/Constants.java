@@ -11,12 +11,13 @@ public class Constants {
     public static final Color DEAD_COLOR = Color.BLACK;
     public static final Color BORDER_COLOR = Color.gray(0.7, 0.7);
 
-    public static final double BORDER_WIDTH = 0.175;
+    public static final double BORDER_WIDTH = 0.1;
 
-    public static final int CELL_SIZE = 20;
+    public static final int CELL_SIZE = 5;
 
-    public static final int SCREEN_INITIAL_WIDTH = 800;
-    public static final int SCREEN_INITIAL_HEIGHT = 600;
+    public static final int SCREEN_INITIAL_WIDTH = 1920;
+    public static final int SCREEN_INITIAL_HEIGHT = 1080;
 
+    public static final int ANIMATION_INTERVAL_MS = 70;
 
 }

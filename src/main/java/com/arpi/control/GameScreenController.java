@@ -1,5 +1,6 @@
 package com.arpi.control;
 
+import com.arpi.display.AbstractGamesScreenDisplayer;
 import com.arpi.display.GameScreenDisplayer;
 import com.arpi.model.GameScreen;
 
@@ -7,10 +8,7 @@ import java.util.Random;
 
 public class GameScreenController {
 
-
-    private GameScreen gameScreen;
-
-    private GameScreenDisplayer gameScreenDisplayer;
+    private AbstractGamesScreenDisplayer gameScreenDisplayer;
 
     public void initGrid(int rows, int cols) {
 
@@ -18,14 +16,14 @@ public class GameScreenController {
         gameScreen.setRows(rows);
         gameScreen.setCols(cols);
         gameScreen.setGrid(new String[rows][cols]);
-        this.gameScreen = gameScreen;
+        gameScreenDisplayer.setGameScreen(gameScreen);
     }
 
     public String getXY(int rowIdx, int colIdx) {
 
-        String[][] grid = this.gameScreen.getGrid();
+        String[][] grid = this.gameScreenDisplayer.getGameScreen().getGrid();
 
-        if (ensureGridContainsRowColCoordinates(gameScreen.getGrid(), rowIdx, colIdx)) {
+        if (ensureGridContainsRowColCoordinates(grid, rowIdx, colIdx)) {
             return grid[rowIdx][colIdx];
         } else {
             System.out.println("Could not GET screen value from x= " + colIdx + " y= " + colIdx + " - returning empty string");
@@ -36,8 +34,8 @@ public class GameScreenController {
 
     public int setXY(int rowIdx, int colIdx, String value) {
 
-        if (ensureGridContainsRowColCoordinates(gameScreen.getGrid(), rowIdx, colIdx)) {
-            this.gameScreen.getGrid()[rowIdx][colIdx] = value;
+        if (ensureGridContainsRowColCoordinates(this.gameScreenDisplayer.getGameScreen().getGrid(), rowIdx, colIdx)) {
+            this.gameScreenDisplayer.getGameScreen().getGrid()[rowIdx][colIdx] = value;
             return 0;
         } else {
             System.out.println("Could not SET screen value from x= " + colIdx + " y= " + colIdx);
@@ -46,16 +44,16 @@ public class GameScreenController {
     }
 
     private boolean ensureGridContainsRowColCoordinates(String[][] grid, int rowIdx, int colIdx) {
-        return grid != null && (rowIdx >= 0 && rowIdx < grid.length) && (colIdx >= 0 && rowIdx < grid[0].length);
+        return grid != null && (rowIdx >= 0 && rowIdx < grid.length) && (colIdx >= 0 && colIdx < grid[0].length);
     }
 
     public void showGameScreen() {
-        this.gameScreenDisplayer.displayGameScreen(this.gameScreen);
+        this.gameScreenDisplayer.displayGameScreen(gameScreenDisplayer.getGameScreen());
     }
 
     public void fillGameScreenWithValue(String value) {
-        for (int i = 0; i < gameScreen.getRows(); i++) {
-            for (int j = 0; j < gameScreen.getCols(); j++) {
+        for (int i = 0; i < gameScreenDisplayer.getGameScreen().getRows(); i++) {
+            for (int j = 0; j < gameScreenDisplayer.getGameScreen().getCols(); j++) {
                 setXY(i, j, value);
             }
         }
@@ -64,27 +62,19 @@ public class GameScreenController {
 
     public void fillGameScreenWithRandom() {
         Random random = new Random();
-        for (int i = 0; i < gameScreen.getRows(); i++) {
-            for (int j = 0; j < gameScreen.getCols(); j++) {
+        for (int i = 0; i < gameScreenDisplayer.getGameScreen().getRows(); i++) {
+            for (int j = 0; j < gameScreenDisplayer.getGameScreen().getCols(); j++) {
                 setXY(i, j, Integer.toString(random.nextInt(2)));
             }
         }
 
     }
 
-    public GameScreen getGameScreen() {
-        return gameScreen;
-    }
-
-    public void setGameScreen(GameScreen gameScreen) {
-        this.gameScreen = gameScreen;
-    }
-
     public GameScreenDisplayer getGameScreenDisplayer() {
         return gameScreenDisplayer;
     }
 
-    public void setGameScreenDisplayer(GameScreenDisplayer gameScreenDisplayer) {
+    public void setGameScreenDisplayer(AbstractGamesScreenDisplayer gameScreenDisplayer) {
         this.gameScreenDisplayer = gameScreenDisplayer;
     }
 }

@@ -2,7 +2,7 @@ package com.arpi.display;
 
 import com.arpi.model.GameScreen;
 
-public class ConsoleGameScreenDisplayer implements GameScreenDisplayer {
+public class ConsoleGameScreenDisplayer extends AbstractGamesScreenDisplayer {
     @Override
     public void displayGameScreen(GameScreen gameScreen) {
 
